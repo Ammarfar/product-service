@@ -17,7 +17,10 @@ export class TypeOrmProductRepository implements ProductRepository {
     const productEntity = ProductMapper.toEntity(product);
     const result = await this.productEntityRepository.insert(productEntity);
 
-    return ProductMapper.toDomain(result.generatedMaps[0] as ProductM);
+    return ProductMapper.toDomain({
+      ...product,
+      ...(result.generatedMaps[0] as ProductM),
+    });
   }
 
   async findAll(): Promise<ProductM[]> {

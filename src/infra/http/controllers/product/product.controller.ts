@@ -105,10 +105,7 @@ export class ProductController {
       .getInstance()
       .execute(addProductDto);
 
-    const eventPayload = {
-      product: productCreated,
-    };
-    this.trxClient.emit('product.created', eventPayload);
+    this.trxClient.emit('product.created', productCreated);
 
     return new ProductPresenter(productCreated);
   }
