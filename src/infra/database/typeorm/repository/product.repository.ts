@@ -46,7 +46,7 @@ export class TypeOrmProductRepository implements ProductRepository {
     const productEntity = await this.productEntityRepository.findOneByOrFail({
       id: id,
     });
-    productEntity.stock = stock;
+    productEntity.stock -= stock;
 
     await this.productEntityRepository.save(productEntity);
   }

@@ -13,12 +13,12 @@ export class ProductController {
     private readonly updateProductStockUsecaseProxy: UseCaseProxy<UpdateProductStockUseCase>,
   ) {}
 
-  @EventPattern('product.update.stock')
+  @EventPattern('trx.created')
   async handleTransactionCreatedEvent(@Payload() payload) {
-    const { productId, stock } = payload;
+    const { productId, qty } = payload;
 
     await this.updateProductStockUsecaseProxy
       .getInstance()
-      .execute(productId, stock);
+      .execute(productId, qty);
   }
 }
